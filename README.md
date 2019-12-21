@@ -1,5 +1,13 @@
 # Template-Engine---Employee-Summary
 https://github.com/kshep425/Template-Engine---Employee-Summary
+
+## Dependencies
+* [Cheerio](https://www.npmjs.com/package/cheerio)
+* [Bootstrap Font Awesome](https://fontawesome.bootstrapcheatsheets.com/)
+* [Inquirer](https://www.npmjs.com/package/inquirer)
+* [Pure CSS](https://purecss.io)
+* [Jest](https://jestjs.io/en/) - For Testing
+
 ## usage
 1. Clone, Download the repository
    ```
@@ -23,5 +31,3 @@ https://github.com/kshep425/Template-Engine---Employee-Summary
     1. School (for Interns)
     1. Enter another employee (Yes - Repeat, No - Leaves Prompt)
     1. Open team.html in the output folder
-
-
