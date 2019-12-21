@@ -46,3 +46,9 @@ test("getRole() should return \"Employee\"", () => {
   const e = new Employee("Alice", 1, "test@test.com");
   expect(e.get_role()).toBe(testValue);
 });
+
+test("get_icon() should return \"fa-user\"", () => {
+    const testValue = "fa-user";
+    const e = new Employee("Alice", 1, "test@test.com");
+    expect(e.get_icon()).toBe(testValue);
+  });

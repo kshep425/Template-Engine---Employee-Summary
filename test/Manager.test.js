@@ -18,3 +18,9 @@ test("Can get office number via get_office_number()", () => {
   const e = new Manager("Foo", 1, "test@test.com", testValue);
   expect(e.get_office_number()).toBe(testValue);
 });
+
+test("get_icon() should return \"fa-coffee\"", () => {
+    const testValue = "fa-coffee";
+    const e = new Manager("Alice", 1, "test@test.com", "Room 1");
+    expect(e.get_icon()).toBe(testValue);
+  });
