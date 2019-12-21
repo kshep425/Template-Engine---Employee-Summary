@@ -199,7 +199,7 @@ async function write_html() {
         if (err) {
             console.log("Houston there's a problem")
         }
-        console.log("Open team.html")
+        console.log("Open ./output/team.html")
     })
 }
 
