@@ -7,7 +7,22 @@ const fs = require("fs")
 const cheerio = require('cheerio')
 const open = require ("open")
 
+let num = 0;
 let id_num = 0;
+
+let employees = [
+    new Manager("Donald Hesler", id_num+=1, "dhesler@kdsdreamtech.com", "Hodson 316"),
+    new Engineer("Jono Augustine",id_num+=1, "jono@kdsdreamtech.com", "jonoaugustine"),
+    new Intern("Jody Jones", id_num+=1, "jody@kdsdreamtech", "Morgan State University"),
+    new Employee("Gregg vonBushberger", id_num+=1, "gvonbush@kdsdreamtech.com")
+]
+
+const employee_defaults = [
+    {role:"Manager", name: "Keisha Shepherd", email: "kshepher@kdsdreamtech.com", office_number: "Hodson 213"},
+    {role:"Engineer", name: "Stetson Lewis", email: "slewis@kdsdreamtech.com", github: "stetzon"},
+    {role:"Intern", name: "Jordyn Saltzman", email: "jsaltz@kdsdreamtech.com", school: "Towson University"},
+    {role:"Employee", name: "Tina Rain", email: "tina@kdsdreamtech.com"}
+]
 
 const questions = [
     {
@@ -15,19 +30,21 @@ const questions = [
         message: "Enter role",
         type: "list",
         choices: ["Employee", "Manager", "Engineer", "Intern"],
-        default: "Employee"
+        default: function() {return employee_defaults[num%4].role}
     },
+
     {
         name: "name",
         message: "Enter name",
         type: "input",
-        default: "Keisha Shepherd"
+        default: function() {return employee_defaults[num%4].name}
     },
+
     {
         name: "email",
         message: "Enter email",
         type: "input",
-        default: "kshep425@gmail.com",
+        default: function() {return employee_defaults[num%4].email},
         validate: function (email) {
 
             valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
@@ -45,7 +62,7 @@ const questions = [
         name: "office_number",
         message: "Enter office number",
         type: "input",
-        default: "A1234",
+        default: function() {return employee_defaults[num%4].office_number},
         when: function (answers) {
             return answers.role === "Manager"
         },
@@ -56,7 +73,7 @@ const questions = [
         name: "school",
         message: "Enter school",
         type: "input",
-        default: "Morgan State University",
+        default: function() {return employee_defaults[num%4].school},
         when: function (answers) {
             return answers.role === "Intern"
         }
@@ -66,20 +83,13 @@ const questions = [
         name: "github",
         message: "Enter github username",
         type: "input",
-        default: "kshep425",
+        default: function() {return employee_defaults[num%4].github},
         when: function (answers) {
             return answers.role === "Engineer"
         }
     }
 
 
-]
-
-let employees = [
-    new Manager("Donald Hesler", id_num+=1, "dhesler@kdsdreamtech.com", "K425"),
-    new Engineer("Jono Augustine",id_num+=1, "jono@kdsdreamtech.com", "jonoaugustine"),
-    new Intern("Jody Jones", id_num+=1, "jody@kdsdreamtech", "Morgan State University"),
-    new Employee("Gregg vonBushberger", id_num+=1, "gvonbush@kdsdreamtech.com")
 ]
 
 function get_info(call_back) {
@@ -91,6 +101,7 @@ function get_info(call_back) {
             let employee;
 
             id_num+=1
+            num+=1
 
             if (response.role === "Employee") {
                 //create employee
@@ -126,7 +137,6 @@ function add_employee() {
     inquirer
         .prompt(add_employee_question)
         .then(function (response) {
-            console.log(response)
             if (response.run_again === true) {
                 get_info(add_employee);
             } else {
@@ -168,7 +178,6 @@ async function write_html() {
 
     });
 
-    console.log($.html())
     fs.writeFile("./output/team.html", $.html(), function (err) {
         if (err) {
             console.log("Houston there's a problem")
@@ -181,7 +190,7 @@ async function write_html() {
 async function open_html(filename='./output/team.html') {
     // Opens the image in the default image viewer and waits for the opened app to quit.
     await open(filename, {wait: true});
-    console.log('open: ' + filename)
+    console.log('Opening: ' + __dirname + "\\output\\team.html")
 };
 
-get_info(add_employee);
+add_employee()

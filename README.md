@@ -24,7 +24,6 @@ https://github.com/kshep425/Template-Engine---Employee-Summary
 1. Answer Prompts
     1. Role
     1. Name
-    1. ID
     1. Email
     1. Github (for Engineers)
     1. Office Number (for Managers)
