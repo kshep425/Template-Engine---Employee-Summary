@@ -2,7 +2,9 @@
 This is a template engine for creating a list of employees with their contact info.
 
 https://github.com/kshep425/Template-Engine---Employee-Summary
-
+<p align="center">
+  <img alt="Example Team Summary" src="./assets/img/Template-Engine.png">
+</p>
 
 ## Table of Contents
 
