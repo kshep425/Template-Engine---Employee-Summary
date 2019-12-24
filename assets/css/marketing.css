@@ -228,6 +228,10 @@ a.pure-button-primary {
     width: 100%;
 }
 
+.pure-menu-selected>.pure-menu-link, .pure-menu-selected>.pure-menu-link:visited {
+    color: antiquewhite;
+}
+
 /*
  * -- TABLET (AND UP) MEDIA QUERIES --
  * On tablets and other medium-sized devices, we want to customize some
