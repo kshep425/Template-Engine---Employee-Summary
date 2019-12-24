@@ -5,6 +5,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const fs = require("fs")
 const cheerio = require('cheerio')
+const open = require ("open")
 
 let id_num = 0;
 
@@ -78,7 +79,8 @@ let employees = [
     new Manager("Donald Hesler", id_num+=1, "dhesler@kdsdreamtech.com", "K425"),
     new Engineer("Jono Augustine",id_num+=1, "jono@kdsdreamtech.com", "jonoaugustine"),
     new Intern("Jody Jones", id_num+=1, "jody@kdsdreamtech", "Morgan State University"),
-    new Employee("Gregg vonBushberger", id_num+=1, "gvonbush@kdsdreamtech.com")]
+    new Employee("Gregg vonBushberger", id_num+=1, "gvonbush@kdsdreamtech.com")
+]
 
 function get_info(call_back) {
     inquirer
@@ -171,8 +173,15 @@ async function write_html() {
         if (err) {
             console.log("Houston there's a problem")
         }
-        console.log("Open ./output/team.html")
+        open_html()
+
     })
 }
+
+async function open_html(filename='./output/team.html') {
+    // Opens the image in the default image viewer and waits for the opened app to quit.
+    await open(filename, {wait: true});
+    console.log('open: ' + filename)
+};
 
 get_info(add_employee);
