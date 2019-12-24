@@ -28,25 +28,16 @@ const questions = [
         type: "input",
         default: "kshep425@gmail.com",
         validate: function (email) {
-            //console.log("\nYou entered email: " + email)
+
             valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-            //console.log("valid email:  " + valid)
+
             if (valid) {
                 return true;
             } else {
+                console.log("Please enter a valid email")
                 return false;
             }
         }
-    },
-
-    {
-        name: "id",
-        message: "Enter id",
-        type: "Number",
-        default: function () {
-            return id_num += 1;
-        },
-
     },
 
     {
@@ -83,60 +74,44 @@ const questions = [
 
 ]
 
-let employees = [new Employee("Alicia Keys", 1, "akeys@kdsdreamtech.com"), new Manager("Keisha Diane Shepherd", 2, "kshepherd@kdsdreamtech.com", "K425"), new Engineer("Jono Augustine", 3, "jono@kdsdreamtech.com", "jonoaugustine"), new
-Engineer("Z Boykin", 4, "kshep425", "Morgan State University")]
+let employees = [
+    new Manager("Donald Hesler", id_num+=1, "dhesler@kdsdreamtech.com", "K425"),
+    new Engineer("Jono Augustine",id_num+=1, "jono@kdsdreamtech.com", "jonoaugustine"),
+    new Intern("Jody Jones", id_num+=1, "jody@kdsdreamtech", "Morgan State University"),
+    new Employee("Gregg vonBushberger", id_num+=1, "gvonbush@kdsdreamtech.com")]
 
 function get_info(call_back) {
     inquirer
         .prompt(questions)
         .then(function (response) {
             console.log(response);
+
             let employee;
-            let employee_html = ""
+
+            id_num+=1
+
             if (response.role === "Employee") {
                 //create employee
-                employee = new Employee(response.name, response.id, response.email)
+                employee = new Employee(response.name, id_num , response.email)
             } else if (response.role === "Manager") {
                 //create manager
-                employee = new Manager(response.name, response.id, response.email, response.office_number)
+                employee = new Manager(response.name, id_num, response.email, response.office_number)
             } else if (response.role === "Intern") {
                 //create intern
-                employee = new Intern(response.name, response.id, response.email, response.school)
+                employee = new Intern(response.name, id_num, response.email, response.school)
             } else if (response.role === "Engineer") {
                 //create engineer
-                employee = new Engineer(response.name, response.id, response.email, response.github)
+                employee = new Engineer(response.name, id_num, response.email, response.github)
             }
+
             employees.push(employee)
-            // employees.forEach(emp =>{
-            //     console.log(emp.get_name())
-            //     employee_html += `<h1>${emp.get_name}<h1>`
-
-
-            // }) //for each
-
-            // console.log(employee_html)
-            // let team_html = fs.readFile("./output/template.html", "utf8", function(err, data){
-            //     if(err){
-            //         console.log("Houston there's a problem")
-            //     }
-            //     console.log("team_html: " + data)
-            //     team_html.replace("||", employee_html)
-            //     fs.writeFile("./output/team.html", team_html, function (err){
-            //         if(err){
-            //             console.log("Houston there's a problem")
-            //         }
-            //         console.log("Open team.html")
-            //     }
-            //     )
-            // })
 
             call_back()
-        })//.then
-
+        })
 
 }
 
-add_employee_question = [
+const add_employee_question = [
     {
         type: "confirm",
         message: "Input another employee",
@@ -182,8 +157,6 @@ async function write_html() {
 
         const employee_container = $("<div>").addClass("l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4 employee_container")
 
-        //emp_name.append(icon)
-        //$(emp_name).append(icon)
         $(employee_container).append(emp_name)
         $(employee_container).append(emp_id)
         $(employee_container).append(emp_email)
@@ -191,7 +164,6 @@ async function write_html() {
         $(employee_container).append(emp_role_info)
         $(".employees").append(employee_container)
 
-        //console.log($.html())
     });
 
     console.log($.html())
@@ -203,7 +175,4 @@ async function write_html() {
     })
 }
 
-//write_html()
-
 get_info(add_employee);
-//add_employee();
